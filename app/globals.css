@@ -1,0 +1,226 @@
+@import "tailwindcss";
+@import "@andrei-leads/core/styles.css";
+
+/* Tokens del template «Almacén» (tienda-1). Referencia: ESPEC.md de recambioscerda §3.
+   Solo --color-primario se sobrescribe desde site.config (layout.tsx); los tonos
+   oscuro y claro se derivan de él, así aguantan cualquier color de marca. */
+@theme {
+  --color-primario: #a8243c; /* marca.colorPrimario · burdeos: 7:1 con texto blanco */
+  --color-sobre-primario: #ffffff;
+  /* Hover de botones y arranque de la banda diagonal. */
+  --color-primario-oscuro: color-mix(in oklab, var(--color-primario) 82%, black);
+  /* Acento sobre el pie negro (títulos de columna, enlaces legales): ≥ 6:1 sobre #000 con burdeos o azul. */
+  --color-primario-claro: color-mix(in oklab, var(--color-primario) 60%, white);
+  --color-primario-tinte: color-mix(in oklab, var(--color-primario) 6%, white);
+
+  --color-tinta: #20292c; /* h1, h2, titulares */
+  --color-texto: #626262; /* cuerpo · 5,9:1 sobre el fondo */
+  --color-texto-lista: #6b7378; /* listas de subfamilias · 4,6:1 sobre la tarjeta */
+  --color-atenuado: #6e7275; /* 3.er párrafo de «Sobre nosotros» (Cerda usa #a6a8a9, sin contraste AA) */
+  --color-subtitulo: #5f6467; /* subtítulo del hero */
+  --color-nav: #3c4346;
+  --color-fondo: #fcfcfc;
+  --color-superficie: #ffffff;
+  --color-tarjeta: #f9f9f9;
+  --color-submenu: #f2f2f2;
+  --color-pie: #000000;
+  --color-lateral: #191919;
+  --color-lateral-texto: #a6a6a6;
+  --color-linea: rgb(0 0 0 / 0.1);
+  --color-etiqueta-ejemplo: rgb(32 41 44 / 0.82);
+  --color-foco: #20292c; /* bloques oscuros o de marca: [--color-foco:#fff] */
+
+  --font-sans: var(--font-raleway), system-ui, sans-serif;
+
+  /* Menú a hamburguesa por debajo de 1240 px, como el original (mobileInit: 1240). */
+  --breakpoint-ancho: 77.5rem;
+
+  --shadow-cabecera: 0 2px 5px rgb(0 0 0 / 0.1);
+  --shadow-barra: 0 -4px 14px rgb(0 0 0 / 0.1);
+
+  --container-contenido: 1220px;
+
+  --animate-kenburns: kenburns 10s linear both;
+  --animate-barrido: barrido 1.2s cubic-bezier(0.76, 0, 0.24, 1) both;
+  --animate-cabecera: cabecera-entra 0.3s ease-in-out;
+  --animate-hero-texto: hero-texto 1.5s cubic-bezier(0.45, 0, 0.55, 1) 0.5s both;
+  --animate-hero-bodegon: hero-bodegon 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+  --animate-panel-entra: panel-entra 0.3s ease-in-out;
+  --animate-panel-sale: panel-sale 0.3s ease-in-out;
+  --animate-velo-entra: velo-entra 0.3s ease-in-out;
+  --animate-velo-sale: velo-sale 0.3s ease-in-out;
+
+  /* A9 · Ken Burns: scale 1 → 1.10 en 10 s. El desplazamiento se baja al 3 % (spec). */
+  @keyframes kenburns {
+    from {
+      transform: scale(1) translateX(0);
+    }
+    to {
+      transform: scale(1.1) translateX(-3%);
+    }
+  }
+  /* A10 · «blocktoright»: el bloque de marca tapa el título y se retira hacia la derecha.
+     Solo se anima el bloque (::after): el texto del h1 se pinta desde el primer frame (LCP). */
+  @keyframes barrido {
+    0%,
+    25% {
+      transform: scaleX(1);
+      transform-origin: right;
+    }
+    100% {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+  }
+  /* A1 · la cabecera fija entra desde arriba en 300 ms. */
+  @keyframes cabecera-entra {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+  /* A6 · texto de la diapositiva: x -50 px → 0 con opacidad. */
+  @keyframes hero-texto {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  /* A7 · bodegón que sale de detrás de una cortina. */
+  @keyframes hero-bodegon {
+    from {
+      transform: translateX(-60%);
+      clip-path: inset(0 0 0 100%);
+    }
+    to {
+      transform: none;
+      clip-path: inset(0);
+    }
+  }
+  /* A4 · menú lateral (250 px) y su velo. */
+  @keyframes panel-entra {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes panel-sale {
+    from {
+      transform: none;
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes velo-entra {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes velo-sale {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}
+
+/* Contenedor de 1220 px; 24 px de margen en móvil y 33 px desde tableta (spec §3.3). */
+@utility contenedor {
+  max-width: calc(var(--container-contenido) + 66px);
+  margin-inline: auto;
+  padding-inline: 24px;
+  @media (min-width: 48rem) {
+    padding-inline: 33px;
+  }
+}
+
+/* Bloques oscuros o de marca: anillo de foco blanco. */
+@utility foco-blanco {
+  --color-foco: #ffffff;
+}
+
+/* Letra gigante tramada de puntos (rasgo de firma, spec §6). Decorativa: aria-hidden. */
+@utility letra-tramada {
+  background: radial-gradient(circle, #111 1px, transparent 1.3px) 0 0 / 6px 6px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* A10 · título del PageHero: bloque de marca que barre y lo deja a la vista. */
+@utility titulo-barrido {
+  position: relative;
+  display: inline-block;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -0.04em -0.08em;
+    background-color: var(--color-primario);
+    transform: scaleX(0);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    &::after {
+      animation: var(--animate-barrido);
+    }
+  }
+}
+
+@layer base {
+  html {
+    /* Las anclas no quedan tapadas por la cabecera fija (60 px). */
+    scroll-padding-top: 4.5rem;
+  }
+  @media (max-width: 47.99rem) {
+    html {
+      scroll-padding-bottom: 5rem;
+    }
+  }
+  body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  @media (min-width: 48rem) {
+    body {
+      font-size: 17px;
+      line-height: 27px;
+    }
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-foco);
+    outline-offset: 2px;
+  }
+}
+
+/* Menos movimiento: sin Ken Burns, sin barridos ni desplazamientos; los colores cambian al instante. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

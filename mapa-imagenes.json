@@ -1,0 +1,1797 @@
+{
+  "_leeme": [
+    "Mapa de las imágenes de IA de prompts-imagenes.md a los huecos de public/ejemplo/ del template tienda-1.",
+    "Lo usa scripts/importar-ia.py. Cada hueco: destino (nombre en public/ejemplo/), proporción, tamaño final, formato,",
+    "si es PNG transparente y cómo se ajusta: «cubrir» = recorte centrado a la proporción (las portadas se quedan con la franja central);",
+    "«contener» = cabe entero, con margen transparente; «contener-fondo» = cabe entero sobre el color «fondo» (JPG).",
+    "Dos fuentes («fuente»): «leads» (ia-*.png, prompts del cliente) y «template» (1.N.png, prompts genéricos del kit).",
+    "Orden para cada hueco: principal del lead > respaldo del lead > principal del template > respaldo del template (si hay imagen del lead, gana siempre).",
+    "«respaldo»: true = solo se usa si no hay ninguna imagen principal para ese destino.",
+    "hoja_2x2 = hoja de 4 recortes: se trocea por cuadrantes; destino null = cuadrante sin uso (ver «nota»).",
+    "«conservar_blanco»: true = no se le quita el fondo automáticamente (el disco blanco central debe seguir opaco).",
+    "«sin_hueco» = imagen de los prompts que tienda-1 no usa en esta demo (se lista, no se importa).",
+    "Las imágenes de IA siguen en /ejemplo/, así que llevan la etiqueta «Foto de ejemplo»."
+  ],
+  "fuentes": {
+    "leads": {
+      "carpeta": "../../../material/leads/suministros-y-herrajes-para-carpinteria-s-l/ia",
+      "prompts": "material/leads/suministros-y-herrajes-para-carpinteria-s-l/prompts-imagenes.md (específicos del cliente)"
+    },
+    "template": {
+      "carpeta": "../../../material/fotos-ejemplo/tienda-1",
+      "prompts": "kit/docs/fotos-ejemplo/tienda-1/prompts-chatgpt.md (genéricos del template, fichas 1.1–1.21)"
+    }
+  },
+  "orden_fuentes": [
+    "leads",
+    "template"
+  ],
+  "carpeta_destino": "public/ejemplo",
+  "calidad_jpg": 82,
+  "archivos": [
+    {
+      "archivo": "ia-01-bodegon-hero.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "hero-bodegon-1.png",
+          "proporcion": "10:7",
+          "tamano": [
+            1600,
+            1120
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Hero de inicio, diapositiva 1 (imagenesHero[0])",
+          "alt": "Bodegón de herrajes de aluminio y PVC en arco: cremona, manillas, pernios, carro de corredera y escuadras"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-02-movil-foto-pieza.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "hero-bodegon-2.png",
+          "proporcion": "10:7",
+          "tamano": [
+            1600,
+            1120
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Hero de inicio, diapositiva 2 (imagenesHero[1])",
+          "alt": "Mano con un móvil fotografiando una manilla gastada, con recambios nuevos alrededor"
+        },
+        {
+          "destino": "proceso-1.jpg",
+          "proporcion": "6:5",
+          "tamano": [
+            960,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "contener-fondo",
+          "uso": "«Cómo trabajamos», tarjeta 1 «Mándanos una foto» (IMAGENES.proceso[0]) y caja «Cómo trabajamos» de /empresa",
+          "alt": "Mano con un móvil fotografiando una manilla gastada para enviar la foto",
+          "fondo": "#f2f2f2"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-04-herrajes-aluminio.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "tile-herrajes-aluminio.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (lib/catalogo.ts → tile de herrajes-aluminio)",
+          "alt": "Cremona con su manilla, bisagras de ventana y escuadras de aluminio sobre un banco de acero oscuro",
+          "oscura": true
+        },
+        {
+          "destino": "familia-herrajes-aluminio.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios y familias destacadas (servicios[0].imagenes[0])",
+          "alt": "Cremona con su manilla, bisagras de ventana y escuadras de aluminio sobre un banco de acero oscuro"
+        },
+        {
+          "destino": "familia-herrajes-aluminio-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/herrajes-aluminio (servicios[0].imagenes[1]) mientras no exista ia-f01-00-contexto.png",
+          "alt": "Cremona con su manilla, bisagras de ventana y escuadras de aluminio sobre un banco de acero oscuro",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-05-herrajes-pvc.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "tile-herrajes-pvc-oscilobatientes.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (lib/catalogo.ts → tile de herrajes-pvc-oscilobatientes)",
+          "alt": "Kit de herraje oscilobatiente para ventana de PVC con manilla blanca, cremona, compás y bisagra",
+          "oscura": true
+        },
+        {
+          "destino": "familia-herrajes-pvc-oscilobatientes.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios y familias destacadas (servicios[1].imagenes[0])",
+          "alt": "Kit de herraje oscilobatiente para ventana de PVC con manilla blanca, cremona, compás y bisagra"
+        },
+        {
+          "destino": "familia-herrajes-pvc-oscilobatientes-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/herrajes-pvc-oscilobatientes (servicios[1].imagenes[1]) mientras no exista ia-f02-00-contexto.png",
+          "alt": "Kit de herraje oscilobatiente para ventana de PVC con manilla blanca, cremona, compás y bisagra",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-06-cerraduras.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "tile-cerraduras-y-cilindros.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (lib/catalogo.ts → tile de cerraduras-y-cilindros)",
+          "alt": "Cerradura de embutir de perfil estrecho, cilindro con llaves, cierre de gancho y cerradero",
+          "oscura": true
+        },
+        {
+          "destino": "familia-cerraduras-y-cilindros.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios y familias destacadas (servicios[2].imagenes[0])",
+          "alt": "Cerradura de embutir de perfil estrecho, cilindro con llaves, cierre de gancho y cerradero"
+        },
+        {
+          "destino": "familia-cerraduras-y-cilindros-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/cerraduras-y-cilindros (servicios[2].imagenes[1]) mientras no exista ia-f03-00-contexto.png",
+          "alt": "Cerradura de embutir de perfil estrecho, cilindro con llaves, cierre de gancho y cerradero",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-07-bisagras-pernios.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "tile-bisagras-y-pernios.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (lib/catalogo.ts → tile de bisagras-y-pernios)",
+          "alt": "Bisagras regulables de puerta, pernio negro y bisagra de ventana de aluminio",
+          "oscura": true
+        },
+        {
+          "destino": "familia-bisagras-y-pernios.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios y familias destacadas (servicios[3].imagenes[0])",
+          "alt": "Bisagras regulables de puerta, pernio negro y bisagra de ventana de aluminio"
+        },
+        {
+          "destino": "familia-bisagras-y-pernios-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/bisagras-y-pernios (servicios[3].imagenes[1]) mientras no exista ia-f04-00-contexto.png",
+          "alt": "Bisagras regulables de puerta, pernio negro y bisagra de ventana de aluminio",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-08-manillas.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "tile-manillas-y-cremonas.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (lib/catalogo.ts → tile de manillas-y-cremonas)",
+          "alt": "Fila de manillas de puerta y de ventana en plata, negro, blanco y burdeos, y un uñero de corredera",
+          "oscura": true
+        },
+        {
+          "destino": "familia-manillas-y-cremonas.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios y familias destacadas (servicios[4].imagenes[0])",
+          "alt": "Fila de manillas de puerta y de ventana en plata, negro, blanco y burdeos, y un uñero de corredera"
+        },
+        {
+          "destino": "familia-manillas-y-cremonas-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/manillas-y-cremonas (servicios[4].imagenes[1]) mientras no exista ia-f05-00-contexto.png",
+          "alt": "Fila de manillas de puerta y de ventana en plata, negro, blanco y burdeos, y un uñero de corredera",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-09-ruedas-corredera.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "tile-rodamientos-y-ruedas-corredera.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (lib/catalogo.ts → tile de rodamientos-y-ruedas-corredera)",
+          "alt": "Carros y ruedas de nailon para ventana y puerta corredera, rodamientos y guías",
+          "oscura": true
+        },
+        {
+          "destino": "familia-rodamientos-y-ruedas-corredera.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios y familias destacadas (servicios[5].imagenes[0])",
+          "alt": "Carros y ruedas de nailon para ventana y puerta corredera, rodamientos y guías"
+        },
+        {
+          "destino": "familia-rodamientos-y-ruedas-corredera-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/rodamientos-y-ruedas-corredera (servicios[5].imagenes[1]) mientras no exista ia-f06-00-contexto.png",
+          "alt": "Carros y ruedas de nailon para ventana y puerta corredera, rodamientos y guías",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-10-juntas-felpudos.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "tile-juntas-felpudos-gomas.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (lib/catalogo.ts → tile de juntas-felpudos-gomas)",
+          "alt": "Rollos de junta de EPDM, felpudo de corredera, junta tubular y calzos de acristalar",
+          "oscura": true
+        },
+        {
+          "destino": "familia-juntas-felpudos-gomas.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios y familias destacadas (servicios[6].imagenes[0])",
+          "alt": "Rollos de junta de EPDM, felpudo de corredera, junta tubular y calzos de acristalar"
+        },
+        {
+          "destino": "familia-juntas-felpudos-gomas-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/juntas-felpudos-gomas (servicios[6].imagenes[1]) mientras no exista ia-f07-00-contexto.png",
+          "alt": "Rollos de junta de EPDM, felpudo de corredera, junta tubular y calzos de acristalar",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-12-composicion-circular.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "composicion.png",
+          "proporcion": "1:1",
+          "tamano": [
+            1200,
+            1200
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "«Cómo trabajamos» de inicio y /contacto (IMAGENES.composicion). El disco blanco central debe quedar opaco",
+          "alt": "Herrajes y herramientas en abanico alrededor de un círculo blanco",
+          "conservar_blanco": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-19-hero-productos.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "huecos": [
+        {
+          "destino": "portada-productos.jpg",
+          "proporcion": "2.75:1",
+          "tamano": [
+            1920,
+            698
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "PageHero de /servicios (IMAGENES.portadas.productos). Franja central del 3:2",
+          "alt": "Surtido de herrajes sobre una chapa de acero oscura",
+          "oscura": true
+        },
+        {
+          "destino": "portada-empresa.jpg",
+          "proporcion": "2.7:1",
+          "tamano": [
+            1920,
+            711
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "PageHero de /empresa mientras no exista ia-45",
+          "alt": "Surtido de herrajes sobre una chapa de acero oscura",
+          "oscura": true,
+          "respaldo": true
+        },
+        {
+          "destino": "portada-contacto.jpg",
+          "proporcion": "2.75:1",
+          "tamano": [
+            1920,
+            698
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "PageHero de /contacto mientras no exista ia-54",
+          "alt": "Surtido de herrajes sobre una chapa de acero oscura",
+          "oscura": true,
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f01-recortes.png",
+      "fuente": "leads",
+      "prioridad": 1,
+      "hoja_2x2": true,
+      "huecos": [
+        {
+          "cuadrante": "arriba-izquierda",
+          "destino": "sub-herrajes-aluminio-1.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 1 de /servicios/herrajes-aluminio (lib/catalogo.ts)",
+          "alt": "Cremona de aluminio con su manilla para ventana practicable"
+        },
+        {
+          "cuadrante": "arriba-derecha",
+          "destino": "sub-herrajes-aluminio-2.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 2 de /servicios/herrajes-aluminio (lib/catalogo.ts)",
+          "alt": "Cierre embutido de gancho para ventana corredera de aluminio, con su cerradero"
+        },
+        {
+          "cuadrante": "abajo-izquierda",
+          "destino": null,
+          "nota": "Compás oscilobatiente: la propuesta de aluminio no tiene subfamilia «Oscilobatientes»"
+        },
+        {
+          "cuadrante": "abajo-derecha",
+          "destino": "sub-herrajes-aluminio-3.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 3 de /servicios/herrajes-aluminio (lib/catalogo.ts)",
+          "alt": "Compás de fricción de acero inoxidable para ventana proyectante"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f02-recortes.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "hoja_2x2": true,
+      "huecos": [
+        {
+          "cuadrante": "arriba-izquierda",
+          "destino": "sub-herrajes-pvc-oscilobatientes-4.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 4 de /servicios/herrajes-pvc-oscilobatientes (lib/catalogo.ts)",
+          "alt": "Manilla blanca de PVC para ventana oscilobatiente"
+        },
+        {
+          "cuadrante": "arriba-derecha",
+          "destino": "sub-herrajes-pvc-oscilobatientes-1.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 1 de /servicios/herrajes-pvc-oscilobatientes (lib/catalogo.ts)",
+          "alt": "Reenvío de esquina de acero galvanizado para herraje oscilobatiente"
+        },
+        {
+          "cuadrante": "abajo-izquierda",
+          "destino": null,
+          "nota": "Bisagra inferior de ventana: no encaja en «Balconeras y portones» (queda sin recorte)"
+        },
+        {
+          "cuadrante": "abajo-derecha",
+          "destino": "sub-herrajes-pvc-oscilobatientes-2.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 2 de /servicios/herrajes-pvc-oscilobatientes (lib/catalogo.ts)",
+          "alt": "Cerradero de acero galvanizado para perfil de PVC"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f03-recortes.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "hoja_2x2": true,
+      "huecos": [
+        {
+          "cuadrante": "arriba-izquierda",
+          "destino": "sub-cerraduras-y-cilindros-1.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 1 de /servicios/cerraduras-y-cilindros (lib/catalogo.ts)",
+          "alt": "Cerradura de embutir de entrada estrecha con frente largo de acero inoxidable"
+        },
+        {
+          "cuadrante": "arriba-derecha",
+          "destino": "sub-cerraduras-y-cilindros-3.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 3 de /servicios/cerraduras-y-cilindros (lib/catalogo.ts)",
+          "alt": "Cilindro de perfil europeo niquelado con dos llaves"
+        },
+        {
+          "cuadrante": "abajo-izquierda",
+          "destino": null,
+          "nota": "Cerradura de gancho para corredera: es «De embutir», no «Multipunto» (queda sin recorte)"
+        },
+        {
+          "cuadrante": "abajo-derecha",
+          "destino": "sub-cerraduras-y-cilindros-4.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 4 de /servicios/cerraduras-y-cilindros (lib/catalogo.ts)",
+          "alt": "Cerradero de acero inoxidable para puerta"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f04-recortes.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "hoja_2x2": true,
+      "huecos": [
+        {
+          "cuadrante": "arriba-izquierda",
+          "destino": "sub-bisagras-y-pernios-2.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 2 de /servicios/bisagras-y-pernios (lib/catalogo.ts)",
+          "alt": "Bisagra regulable de tres palas para puerta de aluminio"
+        },
+        {
+          "cuadrante": "arriba-derecha",
+          "destino": "sub-bisagras-y-pernios-3.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 3 de /servicios/bisagras-y-pernios (lib/catalogo.ts)",
+          "alt": "Pernio negro de aluminio para puerta"
+        },
+        {
+          "cuadrante": "abajo-izquierda",
+          "destino": "sub-bisagras-y-pernios-1.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 1 de /servicios/bisagras-y-pernios (lib/catalogo.ts)",
+          "alt": "Bisagra de dos hojas para ventana de aluminio"
+        },
+        {
+          "cuadrante": "abajo-derecha",
+          "destino": null,
+          "nota": "Bisagra de puerta de PVC: alternativa para «Puerta» si se prefiere"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f05-recortes.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "hoja_2x2": true,
+      "huecos": [
+        {
+          "cuadrante": "arriba-izquierda",
+          "destino": "sub-manillas-y-cremonas-2.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 2 de /servicios/manillas-y-cremonas (lib/catalogo.ts)",
+          "alt": "Manilla de puerta de aluminio sobre placa estrecha"
+        },
+        {
+          "cuadrante": "arriba-derecha",
+          "destino": "sub-manillas-y-cremonas-1.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 1 de /servicios/manillas-y-cremonas (lib/catalogo.ts)",
+          "alt": "Manilla negra mate de ventana practicable"
+        },
+        {
+          "cuadrante": "abajo-izquierda",
+          "destino": null,
+          "nota": "Manilla con llave: alternativa para «Manillas»"
+        },
+        {
+          "cuadrante": "abajo-derecha",
+          "destino": "sub-manillas-y-cremonas-3.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 3 de /servicios/manillas-y-cremonas (lib/catalogo.ts)",
+          "alt": "Uñero embutido para ventana corredera"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f06-recortes.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "hoja_2x2": true,
+      "huecos": [
+        {
+          "cuadrante": "arriba-izquierda",
+          "destino": "sub-rodamientos-y-ruedas-corredera-1.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 1 de /servicios/rodamientos-y-ruedas-corredera (lib/catalogo.ts)",
+          "alt": "Carro de una rueda de nailon gris con rodamiento para ventana corredera"
+        },
+        {
+          "cuadrante": "arriba-derecha",
+          "destino": "sub-rodamientos-y-ruedas-corredera-2.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 2 de /servicios/rodamientos-y-ruedas-corredera (lib/catalogo.ts)",
+          "alt": "Carro regulable de dos ruedas para puerta corredera pesada"
+        },
+        {
+          "cuadrante": "abajo-izquierda",
+          "destino": null,
+          "nota": "Rodamiento suelto con su eje: sin subfamilia propia"
+        },
+        {
+          "cuadrante": "abajo-derecha",
+          "destino": "sub-rodamientos-y-ruedas-corredera-3.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 3 de /servicios/rodamientos-y-ruedas-corredera (lib/catalogo.ts)",
+          "alt": "Guía de nailon blanco para hoja corredera"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f07-recortes.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "hoja_2x2": true,
+      "huecos": [
+        {
+          "cuadrante": "arriba-izquierda",
+          "destino": "sub-juntas-felpudos-gomas-1.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 1 de /servicios/juntas-felpudos-gomas (lib/catalogo.ts)",
+          "alt": "Rollo de junta de EPDM negra para acristalar"
+        },
+        {
+          "cuadrante": "arriba-derecha",
+          "destino": "sub-juntas-felpudos-gomas-2.png",
+          "proporcion": "1:1",
+          "tamano": [
+            600,
+            600
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Tarjeta de subfamilia nº 2 de /servicios/juntas-felpudos-gomas (lib/catalogo.ts)",
+          "alt": "Rollo de felpudo gris con aleta central"
+        },
+        {
+          "cuadrante": "abajo-izquierda",
+          "destino": null,
+          "nota": "Junta tubular de puerta: alternativa para «Juntas»"
+        },
+        {
+          "cuadrante": "abajo-derecha",
+          "destino": null,
+          "nota": "Calzos de acristalar: «Accesorios» propone tapas y tapones, no calzos (queda sin recorte)"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-11-ver-todo-almacen.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "huecos": [
+        {
+          "destino": "tile-ver-todo.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Último tile «Ver todos los productos» de inicio y banda CTA (IMAGENES.verTodo)",
+          "alt": "Pasillo entre estanterías burdeos llenas de cajas de herrajes",
+          "oscura": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-14-mostrador-identificar.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "huecos": [
+        {
+          "destino": "proceso-2.jpg",
+          "proporcion": "6:5",
+          "tamano": [
+            960,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "«Cómo trabajamos», tarjeta 2 «Ven al mostrador» (IMAGENES.proceso[1])",
+          "alt": "Manos comparando una bisagra vieja con su recambio sobre el mostrador"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-15-instalando-ventana.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "huecos": [
+        {
+          "destino": "proceso-3.jpg",
+          "proporcion": "6:5",
+          "tamano": [
+            960,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "«Cómo trabajamos», tarjeta 3 «Para profesionales» (IMAGENES.proceso[2])",
+          "alt": "Instalador ajustando con una llave Allen la bisagra de una ventana de aluminio"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-16-pedidos-preparados.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "huecos": [
+        {
+          "destino": "proceso-4.jpg",
+          "proporcion": "6:5",
+          "tamano": [
+            960,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "«Cómo trabajamos», tarjeta 4 «Si no la tenemos» (IMAGENES.proceso[3])",
+          "alt": "Cajas de pedido preparadas sobre un palé en el almacén"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-45-hero-sobre-nosotros.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "huecos": [
+        {
+          "destino": "portada-empresa.jpg",
+          "proporcion": "2.7:1",
+          "tamano": [
+            1920,
+            711
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "PageHero de /empresa (IMAGENES.portadas.empresa). Franja central del 3:2",
+          "alt": "Herrajes y herramientas sobre una chapa burdeos oscura",
+          "oscura": true
+        }
+      ]
+    },
+    {
+      "archivo": "ia-49-atencion-whatsapp.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "sin_hueco": "tienda-1 no tiene esta caja; además la demo va sin WhatsApp. Úsala si el cliente da número",
+      "huecos": []
+    },
+    {
+      "archivo": "ia-50-trato-profesional.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "huecos": [
+        {
+          "destino": "empresa-contacta.jpg",
+          "proporcion": "16:10",
+          "tamano": [
+            1280,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Caja «Contacta con nosotros» de /empresa (empresa.imagenes[3])",
+          "alt": "Apretón de manos sobre el mostrador entre un carpintero y el dependiente"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-41-flatlay-vertical.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "sin_hueco": "Solo para la página «Cómo trabajamos», que tienda-1 no tiene (va como sección de inicio)",
+      "huecos": []
+    },
+    {
+      "archivo": "ia-f01-00-contexto.png",
+      "fuente": "leads",
+      "prioridad": 2,
+      "huecos": [
+        {
+          "destino": "familia-herrajes-aluminio-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/herrajes-aluminio (servicios[0].imagenes[1])",
+          "alt": "Cremona y manilla de una ventana practicable con marco de aluminio burdeos, entreabierta"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f02-00-contexto.png",
+      "fuente": "leads",
+      "prioridad": 3,
+      "huecos": [
+        {
+          "destino": "familia-herrajes-pvc-oscilobatientes-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/herrajes-pvc-oscilobatientes (servicios[1].imagenes[1])",
+          "alt": "Ventana oscilobatiente de PVC blanco abierta en abatible, con la manilla hacia arriba y el compás"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f03-00-contexto.png",
+      "fuente": "leads",
+      "prioridad": 3,
+      "huecos": [
+        {
+          "destino": "familia-cerraduras-y-cilindros-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/cerraduras-y-cilindros (servicios[2].imagenes[1])",
+          "alt": "Canto de una puerta de aluminio abierta con el frente de la cerradura de embutir y el cilindro"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f04-00-contexto.png",
+      "fuente": "leads",
+      "prioridad": 3,
+      "huecos": [
+        {
+          "destino": "familia-bisagras-y-pernios-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/bisagras-y-pernios (servicios[3].imagenes[1])",
+          "alt": "Puerta de aluminio burdeos entreabierta con dos bisagras regulables de tres palas"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f05-00-contexto.png",
+      "fuente": "leads",
+      "prioridad": 3,
+      "huecos": [
+        {
+          "destino": "familia-manillas-y-cremonas-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/manillas-y-cremonas (servicios[4].imagenes[1])",
+          "alt": "Manilla de puerta de aluminio sobre placa estrecha en una puerta de aluminio grafito"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f06-00-contexto.png",
+      "fuente": "leads",
+      "prioridad": 3,
+      "huecos": [
+        {
+          "destino": "familia-rodamientos-y-ruedas-corredera-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/rodamientos-y-ruedas-corredera (servicios[5].imagenes[1])",
+          "alt": "Parte baja de una ventana corredera de aluminio con el carro rodando sobre el carril"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-f07-00-contexto.png",
+      "fuente": "leads",
+      "prioridad": 3,
+      "huecos": [
+        {
+          "destino": "familia-juntas-felpudos-gomas-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/juntas-felpudos-gomas (servicios[6].imagenes[1])",
+          "alt": "Esquina de una hoja de aluminio con la junta de acristalar y el felpudo de corredera"
+        }
+      ]
+    },
+    {
+      "archivo": "ia-40-hero-como-trabajamos.png",
+      "fuente": "leads",
+      "prioridad": 3,
+      "sin_hueco": "Cabecera de la página «Cómo trabajamos», que tienda-1 no tiene",
+      "huecos": []
+    },
+    {
+      "archivo": "ia-54-hero-contacto.png",
+      "fuente": "leads",
+      "prioridad": 3,
+      "huecos": [
+        {
+          "destino": "portada-contacto.jpg",
+          "proporcion": "2.75:1",
+          "tamano": [
+            1920,
+            698
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "PageHero de /contacto (IMAGENES.portadas.contacto). Franja central del 3:2",
+          "alt": "Carpintero de espaldas hablando por el móvil en un taller de aluminio",
+          "oscura": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.1.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.1",
+      "huecos": [
+        {
+          "destino": "hero-bodegon-1.png",
+          "proporcion": "10:7",
+          "tamano": [
+            1600,
+            1120
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Hero de inicio, diapositiva 1 (imagenesHero[0])",
+          "alt": "Bodegón de herrajes de aluminio y PVC en arco: cremona, manillas, pernios, carro de corredera y escuadras"
+        }
+      ]
+    },
+    {
+      "archivo": "1.2.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.2",
+      "huecos": [
+        {
+          "destino": "hero-bodegon-2.png",
+          "proporcion": "10:7",
+          "tamano": [
+            1600,
+            1120
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "Hero de inicio, diapositiva 2 (imagenesHero[1])",
+          "alt": "Mano con un móvil fotografiando una manilla gastada, con recambios nuevos alrededor"
+        }
+      ]
+    },
+    {
+      "archivo": "1.3.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.3",
+      "huecos": [
+        {
+          "destino": "tile-herrajes-aluminio.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (tile de herrajes-aluminio)",
+          "alt": "Cremona con su manilla, bisagras de ventana y escuadras de aluminio sobre un banco de acero oscuro",
+          "oscura": true
+        },
+        {
+          "destino": "familia-herrajes-aluminio.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios (servicios[0].imagenes[0]); el juego del template no trae fotos de familia",
+          "alt": "Cremona con su manilla, bisagras de ventana y escuadras de aluminio sobre un banco de acero oscuro",
+          "respaldo": true
+        },
+        {
+          "destino": "familia-herrajes-aluminio-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/herrajes-aluminio (servicios[0].imagenes[1])",
+          "alt": "Cremona con su manilla, bisagras de ventana y escuadras de aluminio sobre un banco de acero oscuro",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.4.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.4",
+      "huecos": [
+        {
+          "destino": "tile-herrajes-pvc-oscilobatientes.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (tile de herrajes-pvc-oscilobatientes)",
+          "alt": "Kit de herraje oscilobatiente para ventana de PVC con manilla blanca, cremona, compás y bisagra",
+          "oscura": true
+        },
+        {
+          "destino": "familia-herrajes-pvc-oscilobatientes.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios (servicios[1].imagenes[0]); el juego del template no trae fotos de familia",
+          "alt": "Kit de herraje oscilobatiente para ventana de PVC con manilla blanca, cremona, compás y bisagra",
+          "respaldo": true
+        },
+        {
+          "destino": "familia-herrajes-pvc-oscilobatientes-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/herrajes-pvc-oscilobatientes (servicios[1].imagenes[1])",
+          "alt": "Kit de herraje oscilobatiente para ventana de PVC con manilla blanca, cremona, compás y bisagra",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.5.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.5",
+      "huecos": [
+        {
+          "destino": "tile-cerraduras-y-cilindros.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (tile de cerraduras-y-cilindros)",
+          "alt": "Cerradura de embutir de perfil estrecho, cilindro con llaves, cierre de gancho y cerradero",
+          "oscura": true
+        },
+        {
+          "destino": "familia-cerraduras-y-cilindros.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios (servicios[2].imagenes[0]); el juego del template no trae fotos de familia",
+          "alt": "Cerradura de embutir de perfil estrecho, cilindro con llaves, cierre de gancho y cerradero",
+          "respaldo": true
+        },
+        {
+          "destino": "familia-cerraduras-y-cilindros-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/cerraduras-y-cilindros (servicios[2].imagenes[1])",
+          "alt": "Cerradura de embutir de perfil estrecho, cilindro con llaves, cierre de gancho y cerradero",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.6.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.6",
+      "huecos": [
+        {
+          "destino": "tile-bisagras-y-pernios.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (tile de bisagras-y-pernios)",
+          "alt": "Bisagras regulables de puerta, pernio negro y bisagra de ventana de aluminio",
+          "oscura": true
+        },
+        {
+          "destino": "familia-bisagras-y-pernios.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios (servicios[3].imagenes[0]); el juego del template no trae fotos de familia",
+          "alt": "Bisagras regulables de puerta, pernio negro y bisagra de ventana de aluminio",
+          "respaldo": true
+        },
+        {
+          "destino": "familia-bisagras-y-pernios-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/bisagras-y-pernios (servicios[3].imagenes[1])",
+          "alt": "Bisagras regulables de puerta, pernio negro y bisagra de ventana de aluminio",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.7.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.7",
+      "huecos": [
+        {
+          "destino": "tile-manillas-y-cremonas.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (tile de manillas-y-cremonas)",
+          "alt": "Fila de manillas de puerta y de ventana en plata, negro, blanco y burdeos, y un uñero de corredera",
+          "oscura": true
+        },
+        {
+          "destino": "familia-manillas-y-cremonas.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios (servicios[4].imagenes[0]); el juego del template no trae fotos de familia",
+          "alt": "Fila de manillas de puerta y de ventana en plata, negro, blanco y burdeos, y un uñero de corredera",
+          "respaldo": true
+        },
+        {
+          "destino": "familia-manillas-y-cremonas-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/manillas-y-cremonas (servicios[4].imagenes[1])",
+          "alt": "Fila de manillas de puerta y de ventana en plata, negro, blanco y burdeos, y un uñero de corredera",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.8.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.8",
+      "huecos": [
+        {
+          "destino": "tile-rodamientos-y-ruedas-corredera.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (tile de rodamientos-y-ruedas-corredera)",
+          "alt": "Carros y ruedas de nailon para ventana y puerta corredera, rodamientos y guías",
+          "oscura": true
+        },
+        {
+          "destino": "familia-rodamientos-y-ruedas-corredera.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios (servicios[5].imagenes[0]); el juego del template no trae fotos de familia",
+          "alt": "Carros y ruedas de nailon para ventana y puerta corredera, rodamientos y guías",
+          "respaldo": true
+        },
+        {
+          "destino": "familia-rodamientos-y-ruedas-corredera-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/rodamientos-y-ruedas-corredera (servicios[5].imagenes[1])",
+          "alt": "Carros y ruedas de nailon para ventana y puerta corredera, rodamientos y guías",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.9.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.9",
+      "huecos": [
+        {
+          "destino": "tile-juntas-felpudos-gomas.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Rejilla de familias de inicio y mosaico de la banda CTA (tile de juntas-felpudos-gomas)",
+          "alt": "Rollos de junta de EPDM, felpudo de corredera, junta tubular y calzos de acristalar",
+          "oscura": true
+        },
+        {
+          "destino": "familia-juntas-felpudos-gomas.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Tarjeta de /servicios (servicios[6].imagenes[0]); el juego del template no trae fotos de familia",
+          "alt": "Rollos de junta de EPDM, felpudo de corredera, junta tubular y calzos de acristalar",
+          "respaldo": true
+        },
+        {
+          "destino": "familia-juntas-felpudos-gomas-contexto.jpg",
+          "proporcion": "3:2",
+          "tamano": [
+            1200,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Foto central de /servicios/juntas-felpudos-gomas (servicios[6].imagenes[1])",
+          "alt": "Rollos de junta de EPDM, felpudo de corredera, junta tubular y calzos de acristalar",
+          "respaldo": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.10.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.10",
+      "huecos": [
+        {
+          "destino": "tile-ver-todo.jpg",
+          "proporcion": "4:3",
+          "tamano": [
+            1200,
+            900
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "Último tile «Ver todos los productos» (IMAGENES.verTodo)",
+          "alt": "Pasillo entre estanterías llenas de cajas de herrajes",
+          "oscura": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.11.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.11",
+      "huecos": [
+        {
+          "destino": "composicion.png",
+          "proporcion": "1:1",
+          "tamano": [
+            1200,
+            1200
+          ],
+          "formato": "png",
+          "transparente": true,
+          "ajuste": "contener",
+          "uso": "«Cómo trabajamos» de inicio y /contacto (IMAGENES.composicion)",
+          "alt": "Herrajes y herramientas en abanico alrededor de un círculo blanco",
+          "conservar_blanco": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.12.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.12",
+      "huecos": [
+        {
+          "destino": "proceso-1.jpg",
+          "proporcion": "6:5",
+          "tamano": [
+            960,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "«Cómo trabajamos», tarjeta 1 (IMAGENES.proceso[0])",
+          "alt": "Mano con un móvil fotografiando una manilla gastada para enviar la foto"
+        }
+      ]
+    },
+    {
+      "archivo": "1.13.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.13",
+      "huecos": [
+        {
+          "destino": "proceso-2.jpg",
+          "proporcion": "6:5",
+          "tamano": [
+            960,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "«Cómo trabajamos», tarjeta 2 (IMAGENES.proceso[1])",
+          "alt": "Manos comparando una bisagra vieja con su recambio sobre el mostrador"
+        }
+      ]
+    },
+    {
+      "archivo": "1.14.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.14",
+      "huecos": [
+        {
+          "destino": "proceso-3.jpg",
+          "proporcion": "6:5",
+          "tamano": [
+            960,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "«Cómo trabajamos», tarjeta 3 (IMAGENES.proceso[2])",
+          "alt": "Instalador ajustando con una llave Allen la bisagra de una ventana de aluminio"
+        }
+      ]
+    },
+    {
+      "archivo": "1.15.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.15",
+      "huecos": [
+        {
+          "destino": "proceso-4.jpg",
+          "proporcion": "6:5",
+          "tamano": [
+            960,
+            800
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "«Cómo trabajamos», tarjeta 4 (IMAGENES.proceso[3])",
+          "alt": "Cajas de pedido preparadas sobre un palé en el almacén"
+        }
+      ]
+    },
+    {
+      "archivo": "1.16.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.16",
+      "huecos": [
+        {
+          "destino": "portada-productos.jpg",
+          "proporcion": "2.75:1",
+          "tamano": [
+            1920,
+            698
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "PageHero de /servicios",
+          "alt": "Surtido de herrajes sobre una chapa de acero oscura",
+          "oscura": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.17.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.17",
+      "huecos": [
+        {
+          "destino": "portada-empresa.jpg",
+          "proporcion": "2.7:1",
+          "tamano": [
+            1920,
+            711
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "PageHero de /empresa",
+          "alt": "Herrajes y herramientas sobre una chapa burdeos oscura",
+          "oscura": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.18.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.18",
+      "huecos": [
+        {
+          "destino": "portada-contacto.jpg",
+          "proporcion": "2.75:1",
+          "tamano": [
+            1920,
+            698
+          ],
+          "formato": "jpg",
+          "transparente": false,
+          "ajuste": "cubrir",
+          "uso": "PageHero de /contacto",
+          "alt": "Carpintero de espaldas hablando por el móvil en un taller de aluminio",
+          "oscura": true
+        }
+      ]
+    },
+    {
+      "archivo": "1.19.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.19",
+      "sin_hueco": "La demo usa la foto real 004 (fachada) del cliente, en public/fotos/",
+      "huecos": []
+    },
+    {
+      "archivo": "1.20.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.20",
+      "sin_hueco": "La demo usa la foto real 001 (almacén) del cliente, en public/fotos/",
+      "huecos": []
+    },
+    {
+      "archivo": "1.21.png",
+      "fuente": "template",
+      "prioridad": 1,
+      "ficha": "1.21",
+      "sin_hueco": "La demo usa la foto real 006 (mostrador) del cliente, en public/fotos/",
+      "huecos": []
+    }
+  ],
+  "huecos_sin_ia": [
+    {
+      "destino": "familia-persiana-y-mosquitera.jpg",
+      "proporcion": "3:2",
+      "tamano": [
+        1200,
+        800
+      ],
+      "formato": "jpg",
+      "uso": "Tarjeta de /servicios y foto central de /servicios/persiana-y-mosquitera (servicios[7].imagenes[0]). Familia por confirmar: prompts-imagenes.md no la incluye"
+    }
+  ]
+}
