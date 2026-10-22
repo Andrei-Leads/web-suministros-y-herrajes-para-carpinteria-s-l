@@ -22,6 +22,9 @@ Qué hace:
   al final, hueco por hueco. No falla si las carpetas están vacías o no existen.
 - Recorta o encaja cada una en su hueco, la escala (nunca amplía) y la guarda SIN EXIF ni metadatos,
   con el nombre exacto del hueco, en public/ejemplo/. Las hojas 2×2 se trocean en 4 recortes.
+- «foco» [x, y] (0–1) mueve la ventana de recorte de «cubrir» (por defecto, centrada).
+- «pieza» [x0, y0, x1, y1] saca una sola pieza de un PNG transparente con varias (p. ej. un recorte
+  de subfamilia de la composición): recorta la caja y deja solo la pieza más grande de dentro.
 - Si un hueco tiene imagen principal y de respaldo («respaldo»: true), usa la principal si existe.
 - Se puede relanzar las veces que haga falta: siempre parte de los originales de ia/ y sustituye
   los mismos archivos de destino.
@@ -41,6 +44,7 @@ import os
 import shutil
 import sys
 import tempfile
+from collections import deque
 from pathlib import Path
 
 try:
@@ -99,15 +103,16 @@ def quitar_fondo_blanco(im: Image.Image, umbral: int = 238) -> Image.Image:
     return salida
 
 
-def recortar_a(im: Image.Image, prop: float) -> Image.Image:
-    """Recorte centrado a la proporción pedida (las portadas se quedan con la franja central)."""
+def recortar_a(im: Image.Image, prop: float, foco: tuple[float, float] = (0.5, 0.5)) -> Image.Image:
+    """Recorte a la proporción pedida. `foco` (0–1) sitúa la ventana: (0.5, 0.5) = centrado
+    (las portadas se quedan con la franja central); (0.5, 0) = franja de arriba."""
     w, h = im.size
     if w / h > prop:
         nw = round(h * prop)
-        x = (w - nw) // 2
+        x = round((w - nw) * foco[0])
         return im.crop((x, 0, x + nw, h))
     nh = round(w / prop)
-    y = (h - nh) // 2
+    y = round((h - nh) * foco[1])
     return im.crop((0, y, w, y + nh))
 
 
@@ -133,14 +138,52 @@ def ajustar_al_contenido(im: Image.Image, margen: float = 0.06) -> Image.Image:
     return im.crop((max(0, x0 - m), max(0, y0 - m), min(im.width, x1 + m), min(im.height, y1 + m)))
 
 
+def aislar_pieza(im: Image.Image, caja: list[int]) -> Image.Image:
+    """Recorta `caja` (x0, y0, x1, y1, en píxeles del original) y deja solo la pieza más grande
+    (alfa conectado): los trozos de las piezas vecinas que caen dentro de la caja se vuelven transparentes."""
+    trozo_ = im.crop(tuple(caja))
+    f = 2  # se etiqueta a media resolución (rápido y suficiente para separar piezas)
+    sw, sh = max(1, trozo_.width // f), max(1, trozo_.height // f)
+    a = trozo_.getchannel("A").resize((sw, sh), Image.BOX).load()
+    visto = bytearray(sw * sh)
+    mejor: list[tuple[int, int]] = []
+    for y in range(sh):
+        for x in range(sw):
+            if a[x, y] <= 20 or visto[y * sw + x]:
+                continue
+            visto[y * sw + x] = 1
+            cola, comp = deque([(x, y)]), []
+            while cola:
+                cx, cy = cola.popleft()
+                comp.append((cx, cy))
+                for nx, ny in ((cx + 1, cy), (cx - 1, cy), (cx, cy + 1), (cx, cy - 1)):
+                    if 0 <= nx < sw and 0 <= ny < sh and not visto[ny * sw + nx] and a[nx, ny] > 20:
+                        visto[ny * sw + nx] = 1
+                        cola.append((nx, ny))
+            if len(comp) > len(mejor):
+                mejor = comp
+    mascara = Image.new("L", (sw, sh), 0)
+    pm = mascara.load()
+    for x, y in mejor:
+        pm[x, y] = 255
+    # Un poco más ancha para no comerse el borde suavizado de la pieza.
+    mascara = mascara.filter(ImageFilter.MaxFilter(5)).resize(trozo_.size, Image.NEAREST)
+    salida = trozo_.copy()
+    salida.putalpha(ImageChops.multiply(trozo_.getchannel("A"), mascara))
+    return salida
+
+
 def encajar(im: Image.Image, tamano: tuple[int, int], fondo: tuple[int, int, int, int]) -> Image.Image:
-    """La imagen entera dentro del lienzo `tamano`, centrada, sobre `fondo`."""
+    """La imagen entera dentro del lienzo `tamano`, centrada, sobre `fondo`. Si es más pequeña que
+    el lienzo (y no basta con ampliarla un 25 %), se reduce el lienzo, no se amplía la imagen."""
     pieza = im.copy()
     pieza.thumbnail(tamano, Image.LANCZOS)  # escala hacia abajo; si es más pequeña, la deja
     if pieza.width < tamano[0] and pieza.height < tamano[1]:
         f = min(tamano[0] / pieza.width, tamano[1] / pieza.height)
         if f <= 1.25:  # ampliación mínima para llenar el hueco, nunca más de un 25 %
             pieza = pieza.resize((round(pieza.width * f), round(pieza.height * f)), Image.LANCZOS)
+        else:  # lienzo con la misma proporción, ajustado a la pieza: así la pieza llena el hueco
+            tamano = (round(tamano[0] / f), round(tamano[1] / f))
     lienzo = Image.new("RGBA", tamano, fondo)
     lienzo.alpha_composite(pieza, ((tamano[0] - pieza.width) // 2, (tamano[1] - pieza.height) // 2))
     return lienzo
@@ -187,13 +230,14 @@ def procesar(im: Image.Image, hueco: dict, quitar_fondo: bool, avisos: list[str]
                 "Pide a ChatGPT el PNG transparente o relanza con --quitar-fondo."
             )
 
+    foco = tuple(hueco.get("foco", (0.5, 0.5)))
     if ajuste == "cubrir":
-        salida = reducir(recortar_a(im, prop), tamano)
+        salida = reducir(recortar_a(im, prop, foco), tamano)
     elif ajuste == "contener-fondo":
         if alfa:
             salida = encajar(im, tamano, fondo_jpg + (255,))
         else:  # sin alfa es una foto normal: recorte como las demás
-            salida = reducir(recortar_a(im, prop), tamano)
+            salida = reducir(recortar_a(im, prop, foco), tamano)
     else:  # contener (PNG transparente)
         salida = encajar(im, tamano, (0, 0, 0, 0))
 
@@ -273,6 +317,8 @@ def main() -> int:
             im = abiertas[clave]
             if arch.get("hoja_2x2"):
                 im = ajustar_al_contenido(trozo(im, hueco["cuadrante"]))
+            elif hueco.get("pieza"):
+                im = ajustar_al_contenido(aislar_pieza(im, hueco["pieza"]))
             salida = procesar(im, hueco, args.quitar_fondo, avisos, nombre)
             guardar(salida, destino_dir / destino, hueco["formato"], calidad)
             hechos.append(f"{etiqueta}  {salida.width}×{salida.height}")

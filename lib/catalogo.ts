@@ -38,7 +38,11 @@ export type FamiliaCatalogo = {
   subfamilias: Subfamilia[];
 };
 
-/** Subfamilia con recorte de IA en `/ejemplo/sub-{familia}-{n}.png` (ver mapa-imagenes.json). */
+/**
+ * Subfamilia con recorte de IA en `/ejemplo/sub-{familia}-{n}.png` (ver mapa-imagenes.json). En esta demo los
+ * recortes salen de piezas sueltas de las imágenes transparentes del template (1.1, 1.2 y 1.11); las subfamilias
+ * sin una pieza que encaje van con `subSinFoto`. Si llegan las hojas ia-fNN-recortes.png, se vuelven a `sub`.
+ */
 const sub = (familia: string, n: number, titulo: string, alt: string, referencias: string[]): Subfamilia => ({
   titulo,
   imagen: { src: `/ejemplo/sub-${familia}-${n}.png`, alt },
@@ -54,88 +58,88 @@ const tile = (slug: string, alt: string): Imagen => ({ src: `/ejemplo/tile-${slu
 export const familias: FamiliaCatalogo[] = [
   {
     slug: "herrajes-aluminio",
-    tile: tile("herrajes-aluminio", "Cremona, bisagras de ventana y escuadras de aluminio sobre un banco de acero oscuro"),
+    tile: tile("herrajes-aluminio", "Cremonas, escuadras de aluminio y tornillos sobre una chapa negra"),
     lemaIzquierda: "Lo que necesita una ventana de aluminio para funcionar",
     lemaDerecha: "¿Tu ventana ya tiene años?",
     tituloGama: "Herrajes de aluminio para cada tipo de apertura",
     subfamilias: [
-      sub("herrajes-aluminio", 1, "Practicables", "Cremona de aluminio con su manilla para ventana practicable", ["Cremonas embutidas", "Cierres de presión", "Escuadras de unión", "Bisagras de ventana"]),
-      sub("herrajes-aluminio", 2, "Correderas", "Cierre embutido de gancho para ventana corredera de aluminio, con su cerradero", ["Cierres de corredera", "Ruedas y carros", "Guías y topes", "Uñeros"]),
-      sub("herrajes-aluminio", 3, "Abatibles", "Compás de fricción de acero inoxidable para ventana proyectante", ["Compases", "Brazos de retención", "Cierres de golpe"]),
+      sub("herrajes-aluminio", 1, "Practicables", "Manilla de aluminio plateada para ventana practicable", ["Cremonas embutidas", "Cierres de presión", "Escuadras de unión", "Bisagras de ventana"]),
+      subSinFoto("Correderas", ["Cierres de corredera", "Ruedas y carros", "Guías y topes", "Uñeros"]),
+      subSinFoto("Abatibles", ["Compases", "Brazos de retención", "Cierres de golpe"]),
       subSinFoto("Puertas", ["Bisagras de puerta", "Cerraderos", "Tiradores", "Cierrapuertas"]),
     ],
   },
   {
     slug: "herrajes-pvc-oscilobatientes",
-    tile: tile("herrajes-pvc-oscilobatientes", "Kit de herraje oscilobatiente para ventana de PVC con manilla blanca, cremona, compás y bisagra"),
+    tile: tile("herrajes-pvc-oscilobatientes", "Herraje oscilobatiente para ventana de PVC: cremona, compás y bisagra blanca"),
     lemaIzquierda: "Herrajes oscilobatientes y recambios para ventanas de PVC",
     lemaDerecha: "¿No cierra o se descuelga?",
     tituloGama: "Todo el herraje de una ventana de PVC",
     subfamilias: [
-      sub("herrajes-pvc-oscilobatientes", 1, "Oscilobatiente", "Reenvío de esquina de acero galvanizado para herraje oscilobatiente", ["Kits completos", "Compases", "Cremonas", "Bisagras inferiores"]),
-      sub("herrajes-pvc-oscilobatientes", 2, "Cierres", "Cerradero de acero galvanizado para perfil de PVC", ["Puntos de cierre", "Cerraderos", "Bulones"]),
+      subSinFoto("Oscilobatiente", ["Kits completos", "Compases", "Cremonas", "Bisagras inferiores"]),
+      subSinFoto("Cierres", ["Puntos de cierre", "Cerraderos", "Bulones"]),
       subSinFoto("Balconeras y portones", ["Cierres de portón", "Cerraduras multipunto", "Bisagras de puerta"]),
-      sub("herrajes-pvc-oscilobatientes", 4, "Manillas", "Manilla blanca de PVC para ventana oscilobatiente", ["Manillas oscilobatientes", "Manillas con llave", "Embellecedores"]),
+      sub("herrajes-pvc-oscilobatientes", 4, "Manillas", "Manilla negra de ventana oscilobatiente con pulsador burdeos", ["Manillas oscilobatientes", "Manillas con llave", "Embellecedores"]),
     ],
   },
   {
     slug: "cerraduras-y-cilindros",
-    tile: tile("cerraduras-y-cilindros", "Cerradura de embutir de perfil estrecho, cilindro con llaves, cierre de gancho y cerradero"),
+    tile: tile("cerraduras-y-cilindros", "Cerradura de embutir de perfil estrecho y tres cilindros con sus llaves"),
     lemaIzquierda: "Cerraduras y bombines para puertas de aluminio y PVC",
     lemaDerecha: "Mide antes de cambiarla",
     tituloGama: "Cierres para puertas de aluminio y PVC",
     subfamilias: [
-      sub("cerraduras-y-cilindros", 1, "De embutir", "Cerradura de embutir de entrada estrecha con frente largo de acero inoxidable", ["Perfil estrecho", "Con picaporte", "De gancho para corredera"]),
+      sub("cerraduras-y-cilindros", 1, "De embutir", "Cerradura de embutir de perfil estrecho con frente largo de acero", ["Perfil estrecho", "Con picaporte", "De gancho para corredera"]),
       subSinFoto("Multipunto", ["Tres puntos", "Cerraderos", "Bulones"]),
-      sub("cerraduras-y-cilindros", 3, "Cilindros", "Cilindro de perfil europeo niquelado con dos llaves", ["Bombines de perfil europeo", "Varias medidas"]),
-      sub("cerraduras-y-cilindros", 4, "Cerraderos", "Cerradero de acero inoxidable para puerta", ["Frentes", "Cerraderos regulables"]),
+      sub("cerraduras-y-cilindros", 3, "Cilindros", "Cilindro de perfil europeo niquelado", ["Bombines de perfil europeo", "Varias medidas"]),
+      subSinFoto("Cerraderos", ["Frentes", "Cerraderos regulables"]),
     ],
   },
   {
     slug: "bisagras-y-pernios",
-    tile: tile("bisagras-y-pernios", "Bisagras regulables de puerta, pernio negro y bisagra de ventana de aluminio"),
+    tile: tile("bisagras-y-pernios", "Fila de bisagras y pernios en plata, negro y bronce"),
     lemaIzquierda: "Bisagras para ventanas y puertas de aluminio y PVC",
     lemaDerecha: "Trae la vieja, buscamos pareja",
     tituloGama: "Bisagras y pernios para cada perfil",
     subfamilias: [
-      sub("bisagras-y-pernios", 1, "Ventana", "Bisagra de dos hojas para ventana de aluminio", ["Bisagras de aluminio", "Bisagras de PVC", "Regulables"]),
-      sub("bisagras-y-pernios", 2, "Puerta", "Bisagra regulable de tres palas para puerta de aluminio", ["Bisagras de puerta", "Regulables en altura", "De tres palas"]),
-      sub("bisagras-y-pernios", 3, "Pernios", "Pernio negro de aluminio para puerta", ["Pernios de puerta", "Pernios de ventana", "Tapas embellecedoras"]),
+      sub("bisagras-y-pernios", 1, "Ventana", "Bisagra de dos hojas de acero para ventana", ["Bisagras de aluminio", "Bisagras de PVC", "Regulables"]),
+      sub("bisagras-y-pernios", 2, "Puerta", "Bisagra de acero de pala larga para puerta", ["Bisagras de puerta", "Regulables en altura", "De tres palas"]),
+      subSinFoto("Pernios", ["Pernios de puerta", "Pernios de ventana", "Tapas embellecedoras"]),
     ],
   },
   {
     slug: "manillas-y-cremonas",
-    tile: tile("manillas-y-cremonas", "Fila de manillas de puerta y de ventana en plata, negro, blanco y burdeos, y un uñero de corredera"),
+    tile: tile("manillas-y-cremonas", "Fila de manillas de ventana en plata, negro, blanco, bronce y burdeos, y dos tiradores de corredera"),
     lemaIzquierda: "Manillas, cremonas y tiradores para ventanas y puertas",
     lemaDerecha: "Cuenta los tornillos y mide",
     tituloGama: "Manillas y cremonas para ventana y puerta",
     subfamilias: [
       sub("manillas-y-cremonas", 1, "Cremonas", "Manilla negra mate de ventana practicable", ["De aluminio", "De PVC", "Con llave"]),
-      sub("manillas-y-cremonas", 2, "Manillas", "Manilla de puerta de aluminio sobre placa estrecha", ["Oscilobatientes", "Con llave", "De puerta", "Picaportes"]),
-      sub("manillas-y-cremonas", 3, "Tiradores", "Uñero embutido para ventana corredera", ["De puerta", "Uñeros de corredera", "Tiradores de cazoleta"]),
+      sub("manillas-y-cremonas", 2, "Manillas", "Manilla de puerta de aluminio sobre roseta cuadrada", ["Oscilobatientes", "Con llave", "De puerta", "Picaportes"]),
+      subSinFoto("Tiradores", ["De puerta", "Uñeros de corredera", "Tiradores de cazoleta"]),
     ],
   },
   {
     slug: "rodamientos-y-ruedas-corredera",
-    tile: tile("rodamientos-y-ruedas-corredera", "Carros y ruedas de nailon para ventana y puerta corredera, rodamientos y guías"),
+    tile: tile("rodamientos-y-ruedas-corredera", "Carros y ruedas de nailon blanco y negro para ventana y puerta corredera"),
     lemaIzquierda: "Ruedas y rodamientos para ventanas y puertas correderas",
     lemaDerecha: "Saca la rueda y tráela",
     tituloGama: "Para que la corredera vuelva a correr",
     subfamilias: [
-      sub("rodamientos-y-ruedas-corredera", 1, "Ruedas", "Carro de una rueda de nailon gris con rodamiento para ventana corredera", ["Simples", "Dobles", "Regulables"]),
-      sub("rodamientos-y-ruedas-corredera", 2, "Carros", "Carro regulable de dos ruedas para puerta corredera pesada", ["De ventana", "De balconera", "Regulables"]),
-      sub("rodamientos-y-ruedas-corredera", 3, "Guías y accesorios", "Guía de nailon blanco para hoja corredera", ["Guías", "Topes", "Cierres de corredera"]),
+      sub("rodamientos-y-ruedas-corredera", 1, "Ruedas", "Carro de corredera con ruedas de nailon blanco", ["Simples", "Dobles", "Regulables"]),
+      sub("rodamientos-y-ruedas-corredera", 2, "Carros", "Dos carros de rodillos para puerta corredera de aluminio", ["De ventana", "De balconera", "Regulables"]),
+      subSinFoto("Guías y accesorios", ["Guías", "Topes", "Cierres de corredera"]),
     ],
   },
   {
     slug: "juntas-felpudos-gomas",
-    tile: tile("juntas-felpudos-gomas", "Rollos de junta de EPDM, felpudo de corredera, junta tubular y calzos de acristalar"),
+    tile: tile("juntas-felpudos-gomas", "Rollos de junta de EPDM y un felpudo de corredera"),
     lemaIzquierda: "Gomas, juntas y felpudos para que no entre aire",
     lemaDerecha: "Trae un trozo de muestra",
     tituloGama: "Gomas y felpudos para aluminio y PVC",
     subfamilias: [
-      sub("juntas-felpudos-gomas", 1, "Juntas", "Rollo de junta de EPDM negra para acristalar", ["Gomas de acristalar", "Juntas de estanqueidad", "Juntas de puerta"]),
-      sub("juntas-felpudos-gomas", 2, "Felpudos", "Rollo de felpudo gris con aleta central", ["Felpudo de corredera", "Felpudo con aleta", "Varias alturas"]),
+      sub("juntas-felpudos-gomas", 1, "Juntas", "Rollo de junta de goma negra para acristalar", ["Gomas de acristalar", "Juntas de estanqueidad", "Juntas de puerta"]),
+      subSinFoto("Felpudos", ["Felpudo de corredera", "Felpudo con aleta", "Varias alturas"]),
       subSinFoto("Accesorios", ["Tapas de desagüe", "Tapones de perfil"]),
     ],
   },
@@ -165,7 +169,7 @@ export function fotoTile(servicio: Pick<Servicio, "slug" | "imagenes">): Imagen 
 /** Imágenes propias del diseño, sin campo en el contrato. */
 export const IMAGENES = {
   /** Último tile de la rejilla de inicio («Ver todo»): pasillo del almacén. 4:3. */
-  verTodo: { src: "/ejemplo/tile-ver-todo.jpg", alt: "Pasillo entre estanterías burdeos llenas de cajas de herrajes" },
+  verTodo: { src: "/ejemplo/tile-ver-todo.jpg", alt: "Pasillo entre estanterías metálicas llenas de cajas y cajetines de herrajes" },
   /** Composición circular de producto con un círculo blanco vacío en el centro (ahí va el nombre). 1:1, PNG transparente. */
   composicion: {
     src: "/ejemplo/composicion.png",
@@ -173,14 +177,14 @@ export const IMAGENES = {
   },
   /** Fotos de las tarjetas de «Cómo trabajamos», en el orden de los pasos. 6:5. */
   proceso: [
-    { src: "/ejemplo/proceso-1.jpg", alt: "Mano con un móvil fotografiando una manilla gastada para enviar la foto" },
-    { src: "/ejemplo/proceso-2.jpg", alt: "Manos comparando una bisagra vieja con su recambio sobre el mostrador" },
-    { src: "/ejemplo/proceso-3.jpg", alt: "Instalador ajustando con una llave Allen la bisagra de una ventana de aluminio" },
+    { src: "/ejemplo/proceso-1.jpg", alt: "Mano con un móvil enviando por chat la foto de una rueda de corredera" },
+    { src: "/ejemplo/proceso-2.jpg", alt: "Manos comparando una cremona vieja con su recambio sobre el mostrador" },
+    { src: "/ejemplo/proceso-3.jpg", alt: "Instalador ajustando una ventana corredera de aluminio en una reforma" },
     { src: "/ejemplo/proceso-4.jpg", alt: "Cajas de pedido preparadas sobre un palé en el almacén" },
   ],
   /** Fotos de fondo de los PageHero (≈ 2,75:1, centro libre para el título). */
   portadas: {
-    productos: { src: "/ejemplo/portada-productos.jpg", alt: "Surtido de herrajes sobre una chapa de acero oscura" },
+    productos: { src: "/ejemplo/portada-productos.jpg", alt: "Herrajes de ventana oscilobatiente sobre una chapa oscura" },
     empresa: { src: "/ejemplo/portada-empresa.jpg", alt: "Herrajes y herramientas sobre una chapa burdeos oscura" },
     contacto: { src: "/ejemplo/portada-contacto.jpg", alt: "Carpintero de espaldas hablando por el móvil en un taller de aluminio" },
   },

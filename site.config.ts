@@ -3,11 +3,12 @@ import { defineSiteConfig } from "@andrei-leads/core";
 // Demo de Suministros y Herrajes para Carpintería S.L. (template tienda-1 «Almacén»).
 // Textos: material/leads/suministros-y-herrajes-para-carpinteria-s-l/copy.md (variante SIN WhatsApp).
 // Familias y subfamilias: PROPUESTA del copy, pendiente de validar con el cliente; se completan en lib/catalogo.ts (mismo slug).
-// Fotos reales en public/fotos/ (004 fachada, 001 almacén, 006 mostrador). Las de /ejemplo/ son relleno o IA
+// Fotos reales en public/fotos/ (004 fachada, 001 almacén, 006 mostrador). Las de /ejemplo/ son de IA
 // (llevan la etiqueta «Foto de ejemplo»): ver mapa-imagenes.json y scripts/importar-ia.py.
 // Sin WhatsApp: no hay número confirmado. No poner `contacto.whatsapp` hasta tenerlo.
 
-const familia = (slug: string, alt: string, altContexto: string) => [
+// Sin `altContexto`, la foto central es la misma que la de la tarjeta (imágenes genéricas del template).
+const familia = (slug: string, alt: string, altContexto = alt) => [
   { src: `/ejemplo/familia-${slug}.jpg`, alt },
   { src: `/ejemplo/familia-${slug}-contexto.jpg`, alt: altContexto },
 ];
@@ -60,8 +61,7 @@ export default defineSiteConfig({
       incluye: ["Practicables", "Correderas", "Abatibles", "Puertas"],
       imagenes: familia(
         "herrajes-aluminio",
-        "Cremona, bisagras de ventana y escuadras de aluminio sobre un banco de acero oscuro",
-        "Cremona y manilla de una ventana practicable con marco de aluminio burdeos, entreabierta"
+        "Cremonas, escuadras de aluminio y tornillos sobre una chapa negra"
       ),
       mensajeWhatsapp: "Hola, busco un herraje para ventana o puerta de aluminio. Os mando foto y medidas:",
     },
@@ -77,8 +77,7 @@ export default defineSiteConfig({
       incluye: ["Oscilobatiente", "Cierres", "Balconeras y portones", "Manillas"],
       imagenes: familia(
         "herrajes-pvc-oscilobatientes",
-        "Kit de herraje oscilobatiente para ventana de PVC con manilla blanca, cremona, compás y bisagra",
-        "Ventana oscilobatiente de PVC blanco abierta en abatible, con la manilla hacia arriba y el compás"
+        "Herraje oscilobatiente para ventana de PVC: cremona, compás y bisagra blanca"
       ),
       mensajeWhatsapp: "Hola, busco un recambio para ventana o puerta de PVC. Os mando foto y medidas:",
     },
@@ -94,8 +93,7 @@ export default defineSiteConfig({
       incluye: ["De embutir", "Multipunto", "Cilindros", "Cerraderos"],
       imagenes: familia(
         "cerraduras-y-cilindros",
-        "Cerradura de embutir de perfil estrecho, cilindro con llaves, cierre de gancho y cerradero",
-        "Canto de una puerta de aluminio abierta con el frente de la cerradura de embutir y el cilindro"
+        "Cerradura de embutir de perfil estrecho y tres cilindros con sus llaves"
       ),
       mensajeWhatsapp: "Hola, busco una cerradura para puerta de aluminio o PVC. Os mando foto y medidas:",
     },
@@ -111,8 +109,7 @@ export default defineSiteConfig({
       incluye: ["Ventana", "Puerta", "Pernios"],
       imagenes: familia(
         "bisagras-y-pernios",
-        "Bisagras regulables de puerta, pernio negro y bisagra de ventana de aluminio",
-        "Puerta de aluminio burdeos entreabierta con dos bisagras regulables de tres palas"
+        "Fila de bisagras y pernios en plata, negro y bronce"
       ),
       mensajeWhatsapp: "Hola, busco una bisagra para ventana o puerta. Os mando foto y medidas:",
     },
@@ -128,8 +125,7 @@ export default defineSiteConfig({
       incluye: ["Cremonas", "Manillas", "Tiradores"],
       imagenes: familia(
         "manillas-y-cremonas",
-        "Fila de manillas de puerta y de ventana en plata, negro, blanco y burdeos, y un uñero de corredera",
-        "Manilla de puerta de aluminio sobre placa estrecha en una puerta de aluminio grafito"
+        "Fila de manillas de ventana en plata, negro, blanco, bronce y burdeos, y dos tiradores de corredera"
       ),
       mensajeWhatsapp: "Hola, busco una manilla o cremona. Os mando foto y la distancia entre tornillos:",
     },
@@ -145,8 +141,7 @@ export default defineSiteConfig({
       incluye: ["Ruedas", "Carros", "Guías y accesorios"],
       imagenes: familia(
         "rodamientos-y-ruedas-corredera",
-        "Carros y ruedas de nailon para ventana y puerta corredera, rodamientos y guías",
-        "Parte baja de una ventana corredera de aluminio con el carro rodando sobre el carril"
+        "Carros y ruedas de nailon blanco y negro para ventana y puerta corredera"
       ),
       mensajeWhatsapp: "Hola, busco una rueda para corredera. Os mando foto, ancho y diámetro:",
     },
@@ -162,8 +157,7 @@ export default defineSiteConfig({
       incluye: ["Juntas", "Felpudos", "Accesorios"],
       imagenes: familia(
         "juntas-felpudos-gomas",
-        "Rollos de junta de EPDM, felpudo de corredera, junta tubular y calzos de acristalar",
-        "Esquina de una hoja de aluminio con la junta de acristalar y el felpudo de corredera"
+        "Rollos de junta de EPDM y un felpudo de corredera"
       ),
       mensajeWhatsapp: "Hola, busco una goma o felpudo para ventana. Os mando foto con una regla al lado:",
     },
@@ -178,7 +172,8 @@ export default defineSiteConfig({
         "Persianas y mosquiteras tienen muchas medidas. Mándanos una foto de la pieza rota y otra del conjunto, con el ancho de la cinta si lo tienes a mano, y te decimos qué hay.",
       ],
       incluye: ["Persiana", "Mosquitera"],
-      imagenes: [{ src: "/ejemplo/familia-persiana-y-mosquitera.jpg", alt: "Recambios de persiana y mosquitera" }],
+      // Sin foto (no hay imagen de IA para esta familia): la tarjeta y la página llevan el icono.
+      imagenes: [],
       mensajeWhatsapp: "Hola, busco una pieza de persiana o mosquitera. Os mando foto:",
     },
   ],
@@ -251,7 +246,7 @@ export default defineSiteConfig({
         src: "/fotos/006-mostrador-del-almacen.jpg",
         alt: "Mostrador de atención del almacén, con frente burdeos y ventanilla de cristal",
       },
-      { src: "/ejemplo/empresa-contacta.jpg", alt: "Apretón de manos sobre el mostrador entre un carpintero y el dependiente" },
+      { src: "/ejemplo/empresa-contacta.jpg", alt: "Carpintero de espaldas hablando por el móvil en un taller de aluminio" },
     ],
   },
   preguntas: [

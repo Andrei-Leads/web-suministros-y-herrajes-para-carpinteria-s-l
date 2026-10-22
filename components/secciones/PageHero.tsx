@@ -3,10 +3,13 @@ import type { Imagen } from "@andrei-leads/core";
 
 import { EtiquetaEjemplo, esDeEjemplo } from "@/components/Foto";
 import { TrazoBajoHero } from "@/components/Decorados";
+import { cn } from "@/lib/utils";
 
 type Props = {
   titulo: string;
   imagen?: Imagen;
+  /** Clase `object-[…]` para mover el encuadre (en móvil la foto se recorta por los lados). Por defecto, centrada. */
+  enfoque?: string;
 };
 
 /**
@@ -16,7 +19,7 @@ type Props = {
  * A10: barrido de un bloque de marca que deja el título a la vista (solo se anima el ::after).
  * Debajo, el trazo tinta de 3 × 40 px.
  */
-export function PageHero({ titulo, imagen }: Props) {
+export function PageHero({ titulo, imagen, enfoque }: Props) {
   return (
     <>
       <section className="foco-blanco relative isolate flex min-h-[260px] items-center justify-center overflow-hidden bg-tinta md:h-[500px]">
@@ -28,7 +31,7 @@ export function PageHero({ titulo, imagen }: Props) {
               fill
               priority
               sizes="100vw"
-              className="object-cover motion-safe:animate-kenburns"
+              className={cn("object-cover motion-safe:animate-kenburns", enfoque)}
             />
             <div className="absolute inset-0 bg-black/50" />
           </div>

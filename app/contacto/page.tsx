@@ -34,7 +34,8 @@ export default function Page() {
 
   return (
     <>
-      <PageHero titulo="Contacto" imagen={IMAGENES.portadas.contacto} />
+      {/* El carpintero de la portada está a la derecha: en móvil se encuadra hacia él. */}
+      <PageHero titulo="Contacto" imagen={IMAGENES.portadas.contacto} enfoque="object-[80%_50%]" />
 
       <section aria-labelledby="titulo-contacta" className="pt-[clamp(48px,6vw,90px)] pb-[clamp(40px,5vw,70px)]">
         <div className="contenedor grid items-start gap-x-6 gap-y-10 lg:grid-cols-[2fr_1fr_2fr]">
